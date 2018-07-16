@@ -1,10 +1,10 @@
 'use strict';
 
-let isFunction = function(obj){
+var isFunction = function isFunction(obj) {
     return Object.prototype.toString.call(obj) == '[object Function]';
 };
-let extend = function(obj){
-    Array.prototype.slice.call(arguments, 1).forEach(function(source){
+var extend = function extend(obj) {
+    Array.prototype.slice.call(arguments, 1).forEach(function (source) {
         if (source) {
             for (var prop in source) {
                 obj[prop] = source[prop];
@@ -14,8 +14,7 @@ let extend = function(obj){
     return obj;
 };
 
-
-let pluses = /\+/g;
+var pluses = /\+/g;
 
 function encode(s) {
     return config.raw ? s : encodeURIComponent(s);
@@ -37,7 +36,7 @@ function parseCookieValue(s) {
     try {
         s = decodeURIComponent(s.replace(pluses, ' '));
         return config.json ? JSON.parse(s) : s;
-    } catch(e) {}
+    } catch (e) {}
 }
 
 function read(s, converter) {
@@ -45,9 +44,9 @@ function read(s, converter) {
     return isFunction(converter) ? converter(value) : value;
 }
 
-var cookie$1,config,removeCookie;
+var cookie$1, config, removeCookie;
 
-config = cookie$1 = function (key, value, options) {
+config = cookie$1 = function cookie$1(key, value, options) {
 
     // Write
 
@@ -55,17 +54,13 @@ config = cookie$1 = function (key, value, options) {
         options = extend({}, config.defaults, options);
 
         if (typeof options.expires === 'number') {
-            var days = options.expires, t = options.expires = new Date();
+            var days = options.expires,
+                t = options.expires = new Date();
             t.setTime(+t + days * 864e+5);
         }
 
-        return (document.cookie = [
-                encode(key), '=', stringifyCookieValue(value),
-                options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-                options.path    ? '; path=' + options.path : '',
-                options.domain  ? '; domain=' + options.domain : '',
-                options.secure  ? '; secure' : ''
-        ].join(''));
+        return document.cookie = [encode(key), '=', stringifyCookieValue(value), options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+        options.path ? '; path=' + options.path : '', options.domain ? '; domain=' + options.domain : '', options.secure ? '; secure' : ''].join('');
     }
 
     // Read
@@ -99,7 +94,7 @@ config = cookie$1 = function (key, value, options) {
 
 config.defaults = {};
 
-removeCookie = function (key, options) {
+removeCookie = function removeCookie(key, options) {
     if (cookie$1(key) === undefined) {
         return false;
     }
@@ -112,69 +107,100 @@ cookie$1.remove = removeCookie;
 
 window.Cookie = cookie$1;
 
-const Webp_Base64_Tester = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/uVqAAA=';
-const Flags = {
+var Webp_Base64_Tester = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAD8D+JaQAA3AA/uVqAAA=';
+var Flags = {
     Browser_Support: '1',
     Browser_Unsupport: '2'
 };
 
-let getDomainFromImgUrl = function (url) {
-    let matchRes = url.match(/^(http)?s?\:?\/\/([^\/]*)/);
+var getDomainFromImgUrl = function getDomainFromImgUrl(url) {
+    var matchRes = url.match(/^(http)?s?\:?\/\/([^\/]*)/);
 
     if (!matchRes) {
-        return ''
+        return '';
     }
-    return matchRes[2]
+    return matchRes[2];
 };
 
-let webpProbe = function (maxTime=3) {
-    let img = new Image();
+var webpProbe = function webpProbe() {
+    var maxTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
+
+    var img = new Image();
     img.onload = function () {
         if (img.height > 0 && img.width > 0) {
-            cookie('webp_support','1',{
-                expires : maxTime ,
+            cookie('webp_support', '1', {
+                expires: maxTime
             });
         } else {
-            cookie('webp_support','2',{
-                expires : maxTime ,
-            });            
+            cookie('webp_support', '2', {
+                expires: maxTime
+            });
             Promise.reject();
         }
     };
     img.onerror = function () {
-        cookie('webp_support','2',{
-            expires : maxTime ,
+        cookie('webp_support', '2', {
+            expires: maxTime
         });
         Promise.reject();
     };
     img.src = Webp_Base64_Tester;
 };
 
-function webpServerConfig(...domains){
-    let Support_Webp_Server = {};
-    for(let domain of domains){
-        Support_Webp_Server[domain] = 1;
+function webpServerConfig() {
+    var Support_Webp_Server = {};
+
+    for (var _len = arguments.length, domains = Array(_len), _key = 0; _key < _len; _key++) {
+        domains[_key] = arguments[_key];
     }
+
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = domains[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var domain = _step.value;
+
+            Support_Webp_Server[domain] = 1;
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+
     return Support_Webp_Server;
 }
 //检测客户端是否支持webp
-function isClientSupportWebp(time = 3 ){
-    if(!cookie('webp_support')){
+function isClientSupportWebp() {
+    var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
+
+    if (!cookie('webp_support')) {
         webpProbe(time);
     }
 }
-let syncWebpChecker = function () {
+var syncWebpChecker = function syncWebpChecker() {
     return localstorage.getItem('webp') === Flags.Browser_Support;
 };
 //img必须为完整的url
-function img2webp(servers,img){
-    let isServerSupportWebp = servers[getDomainFromImgUrl(img)];
+function img2webp(servers, img) {
+    var isServerSupportWebp = servers[getDomainFromImgUrl(img)];
     if (!syncWebpChecker() || !isServerSupportWebp) {
-        return img
+        return img;
     }
-    let cookie = cookie('webp_support');
-    if(!cookie==1){
-        return img
+    var cookie = cookie('webp_support');
+    if (!cookie == 1) {
+        return img;
     }
     if (img.match(/[png|jpg|gif]$/)) {
         return img + '.webp';
@@ -188,8 +214,8 @@ function img2webp(servers,img){
             return splitImg[0] + '.webp@' + splitImg[1];
         }
     }
-    return img
+    return img;
 }
-var index = {isClientSupportWebp,img2webp,webpServerConfig};
+var index = { isClientSupportWebp: isClientSupportWebp, img2webp: img2webp, webpServerConfig: webpServerConfig };
 
 module.exports = index;
