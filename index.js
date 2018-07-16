@@ -7,7 +7,7 @@ const Flags = {
 }
 
 let getDomainFromImgUrl = function (url) {
-    var matchRes = url.match(/^(http)?s?\:?\/\/([^\/]*)/)
+    let matchRes = url.match(/^(http)?s?\:?\/\/([^\/]*)/)
 
     if (!matchRes) {
         return ''
@@ -61,6 +61,10 @@ function img2webp(servers,img){
     if (!syncWebpChecker() || !isServerSupportWebp) {
         return img
     }
+    let cookie = cookie('webp_support');
+    if(!cookie==1){
+        return img
+    }
     if (img.match(/[png|jpg|gif]$/)) {
         return img + '.webp';
     }
@@ -75,4 +79,4 @@ function img2webp(servers,img){
     }
     return img
 }
-export default {Flags, isClientSupportWebp, img2webp , webpServerConfig}
+export default {isClientSupportWebp,img2webp,webpServerConfig}
