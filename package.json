@@ -1,12 +1,17 @@
 {
-  "name": "webp-handler",
+  "name": "@dp/webp-handler",
   "version": "1.0.0",
   "description": "this is a module support webp",
   "main": "dist/dist.js",
-  "module":"dist/dist.es.js",
+  "module": "dist/dist.es.js",
   "scripts": {
+    "buildcjs":"rollup index.js -f cjs -o dist/dist.js",
+    "buildes" :"rollup index.js -f es -o dist/dist.es.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eric Hang",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "rollup": "^0.62.0"
+  }
 }

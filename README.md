@@ -1,6 +1,10 @@
 ## install
 npm install webp-handler
 
+#build
+npm run buildcjs (commonjs)
+npm run buildes  (es5)
+
 ## api
 ### isClientSupportWebp()
 * import this if you want to check whether the client support webp
