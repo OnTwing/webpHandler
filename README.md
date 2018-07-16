@@ -1,9 +1,9 @@
 ## install
 npm install webp-handler
 
-#build
-npm run buildcjs (commonjs)
-npm run buildes  (es5)
+## build
+* npm run buildcjs (commonjs)
+* npm run buildes  (es5)
 
 ## api
 ### isClientSupportWebp()
