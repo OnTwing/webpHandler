@@ -14,7 +14,7 @@ servers are the domain that you store your static resource,time is the cookie ex
 * img2webp(imgurl) => imgurl must be complete
 
 ## node version
-###how to use
+### how to use
 * var webpHandler = require('webp-handler)
 * var instance    = new webpHandler({servers:['aaa.com','bbb.com','ccc.com'],cookie:yourcookie})
 * var webpimgUrl  = instance.img2webp(imgurl)
