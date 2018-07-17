@@ -1,23 +1,27 @@
 ## install
 npm install webp-handler
 
-## build
-* npm run buildcjs (commonjs)
-* npm run buildes  (es5)
+## browser version
+### how to use
+* var webpHandler = require('webp-handler)
+* var instance    = new webpHandler({servers:['aaa.com','bbb.com','ccc.com']})
+* var webpimgUrl  = instance.img2webp(imgurl)
 
-## api
-### isClientSupportWebp()
-* import this if you want to check whether the client support webp
-    > and call isClientSupportWebp();
+### api
+* new webpHadler(options) => options is an object includes __servers(required)__ and time
+servers are the domain that you store your static resource,time is the cookie expiretime(day)
 
-### webpServerConfig(...domains)
-* this api will return an Object contains the src of your img that can be transfered to webp when you pass in an array or a few arguments 
-* you must call this before img2webp()!
-> example:
-        let webpSupportServer = webpServerConfig(['aaa.net','bbb.net','ccc.net']);
-        let webpSupportServer = webpServerConfig('aaa.net','bbb.net','ccc.net');
+* img2webp(imgurl) => imgurl must be complete
 
-### img2webp(servers.img) ###
-* this api will transfer png/jpg/gif to webp,call this after webpServerConfig()
+## node version
+###how to use
+* var webpHandler = require('webp-handler)
+* var instance    = new webpHandler({servers:['aaa.com','bbb.com','ccc.com'],cookie:yourcookie})
+* var webpimgUrl  = instance.img2webp(imgurl)
     
-        
+### api
+* new webpHadler(options) => options is an object includes __servers(required)__ and __cookie(required)__
+servers are the domain that you store your static resource
+* cookie's name is __webp_support__ ,u need to get it first
+
+* img2webp(imgurl) => imgurl must be complete
